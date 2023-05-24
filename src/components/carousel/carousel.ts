@@ -141,6 +141,8 @@ export default class SlCarousel extends ShoelaceElement {
   }
 
   private getCurrentPage() {
+    console.log('getCurrentPage():', this.activeSlide, this.slidesPerPage);
+    console.log('currentPage ret val:', Math.floor(this.activeSlide / this.slidesPerPage));
     return Math.floor(this.activeSlide / this.slidesPerPage);
   }
 
@@ -282,6 +284,8 @@ export default class SlCarousel extends ShoelaceElement {
 
     // Do not emit an event on first render
     if (this.hasUpdated) {
+      console.log('handelSlideChange called');
+      console.log('activeSlide in handelSlideChange:', this.activeSlide);
       this.emit('sl-slide-change', {
         detail: {
           index: this.activeSlide,
@@ -351,6 +355,9 @@ export default class SlCarousel extends ShoelaceElement {
 
     // Sets the next index without taking into account clones, if any.
     const newActiveSlide = (index + slides.length) % slides.length;
+    console.log('index in gotoslide:', index);
+    console.log('slides-length in gotoslide: ', slides.length);
+    console.log('newActiveSlide in gotoslide: ', newActiveSlide);
     this.activeSlide = newActiveSlide;
 
     // Get the index of the next slide. For looping carousel it adds `slidesPerPage`
@@ -439,6 +446,8 @@ export default class SlCarousel extends ShoelaceElement {
           ? html`
               <div part="pagination" role="tablist" class="carousel__pagination" aria-controls="scroll-container">
                 ${map(range(pagesCount), index => {
+                  console.log('index in html', index);
+                  console.log('currentPage in html', currentPage);
                   const isActive = index === currentPage;
                   return html`
                     <button
